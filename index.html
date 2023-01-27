@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <style>
+            input, button { padding: 10px; }
+        </style>
+    </head>
+    <body>
+        <input type="text" id="message" />
+
+        <button onclick="transmitMessage()">Send</button>
+        <script>
+            // Create a new WebSocket.
+            var socket  = new WebSocket('ws://localhost:8888');
+
+            // Define the 
+            var message = document.getElementById('message');
+
+            function transmitMessage() {
+                const data = {
+                    z_Id:"2dacd150-9b8b-11ed-8054-0242ac110004",
+                    a_Id:"",
+                    area_static:"",
+                    u_Id:"",
+                    a_Name:"",
+                    ActionStatus:"START",
+                }
+
+                const jsondata = JSON.stringify(data);
+                socket.send(jsondata);
+            }
+
+            socket.onmessage = function(e) {
+                const obj = JSON.parse(e.data);
+                console.log(obj)
+            }
+
+        </script>
+    </body>
+</html>
